@@ -1,0 +1,25 @@
+{
+  "name": "WA Invisbility Cape",
+  "description": "WhatsApp Web extension to be invisible!",
+  "version": "1.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/invis.jpeg",
+      "32": "images/invis.jpeg",
+      "48": "images/invis.jpeg",
+      "128": "images/invis.jpeg"
+    }
+  },
+  "icons": {
+    "16": "images/invis.jpeg",
+    "32": "images/invis.jpeg",
+    "48": "images/invis.jpeg",
+    "128": "images/invis.jpeg"
+  }
+}
