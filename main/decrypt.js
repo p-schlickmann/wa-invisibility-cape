@@ -23,11 +23,10 @@ MessageDecryptor.isTagBasedPayload = function(payload) {
 }
 
 MessageDecryptor.parseWS = function (websocket) {
-    if (!MessageDecryptor.isTagBasedPayload(websocket)) return null;
+    if (!MessageDecryptor.isTagBasedPayload(websocket)) return
 
     var t, r, n = websocket;
-    if (websocket instanceof ArrayBuffer)
-    {
+    if (websocket instanceof ArrayBuffer) {
         var array = new Uint8Array(websocket);
         for (var o, i=0, a = [];(o=array[i]) != 44;i++) // 44 == ','
             a.push(o);
@@ -61,12 +60,9 @@ MessageDecryptor.parseWS = function (websocket) {
         r = websocket.slice(d + 1);
         if (r[0] == ",") r = r.slice(1);
 
-        try
-        {
+        try {
             r = JSON.parse(r);
-        }
-        catch (e)
-        {
+        } catch (e) {
             // just leave it unparsed
         }
     }
@@ -89,5 +85,3 @@ MessageDecryptor.decrypt = async function(buffer) {
     );
     return [{ frame: decrypted, counter: 0 }];
 }
-
-

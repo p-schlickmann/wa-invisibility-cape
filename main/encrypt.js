@@ -1,10 +1,11 @@
 var MessageEncryptor = {}
 
 MessageEncryptor.encrypt = function(buffer) {
+    console.log('encrypting')
     if (buffer instanceof Uint8Array) {
         buffer = transformToArrayBuffer(buffer)
     }
-    const iv = buffer.slice(32, 48);
+    const iv = new Uint8Array(16)
     window.crypto.getRandomValues(iv);
     const data = new Uint8Array(buffer);
     const keys = getCryptoKeys();
@@ -31,25 +32,25 @@ MessageEncryptor.encrypt = function(buffer) {
                 });
         })
     });
-
 }
 
-MessageEncryptor.parseNodesToSend = async function(nodesInfo, isIncoming = false, tag=undefined) {
+MessageEncryptor.parseNodesToSend = async function(nodesInfo, isIncoming = false, tag=undefined)  {
     var packetBinaryWriter = new BinaryWriter();
-    for (let i = 0; i < nodesInfo.length; i++) {
-        const nodeInfo = nodesInfo[i];
-        const node = nodeInfo.node;
-        const counter = nodeInfo.counter;
+    for (var i = 0; i < nodesInfo.length; i++) {
+        var nodeInfo = nodesInfo[i];
+        var node = nodeInfo.node;
+        var counter = nodeInfo.counter;
 
-        const nodeBinaryWriter = new BinaryWriter();
-        const nodePacker = new NodePacker();
+        var nodeBinaryWriter = new BinaryWriter();
+        var nodePacker = new NodePacker();
 
         nodePacker.writeNode(nodeBinaryWriter, node);
-        const nodeBuffer = nodeBinaryWriter.toBuffer();
+        var nodeBuffer = nodeBinaryWriter.toBuffer();
 
-        const data = await MessageEncryptor.encrypt(nodeBuffer);
-        const frame = new WAPacket({"data": data, "tag": tag, "binaryOpts": {}});
+        var data = await MessageEncryptor.encrypt(nodeBuffer, false, isIncoming, counter);
+        var frame = new WAPacket({"isMultiDevice": false, "data": data, "tag": tag, "binaryOpts": {}});
         packetBinaryWriter.pushBytes(isIncoming ? frame.serializeWithoutBinaryOpts() : frame.serialize());
-    }
+        }
     return packetBinaryWriter.toBuffer();
+
 }
