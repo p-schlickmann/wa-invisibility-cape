@@ -1,8 +1,13 @@
-injectFunctionInstantly(webScoketInterception);
+injectFunctionInstantly(webSocketInterception);
 loadScripts();
 
 async function loadScripts() {
-    // inject code copied from whats app
+    // // inject code copied from whats app
+    setInterval(function() {
+        chrome.runtime.sendMessage('getInvisibility', (isInvisibleFromPopup) => {
+            localStorage.setItem('isInvisible', isInvisibleFromPopup)
+        });
+    }, 1000)
     await loadScript('main/waParser/binaryReader.js')
     await loadScript('main/waParser/binaryWriter.js')
     await loadScript('main/waParser/messageParser.js')
@@ -14,7 +19,6 @@ async function loadScripts() {
     await loadScript('main/decrypt.js')
     await loadScript('main/encrypt.js')
     await loadScript('main/packet.js')
-    await loadScript('main/variables.js')
     await loadScript('main/intercept.js')
 }
 
@@ -32,12 +36,7 @@ function loadScript(scriptName) {
     });
 }
 
-function injectFunctionInstantly(injectedFunction)
-{
-    // Reading from disk seems to slow down the injection
-    /* var response = await fetch(chrome.extension.getURL(scriptName));
-       var text = new TextDecoder("utf-8").decode(await response.body.getReader().read().value); */
-
+function injectFunctionInstantly(injectedFunction) {
     var s = document.createElement('script');
     var functionText = injectedFunction.toString();
     s.textContent = functionText.substring(functionText.indexOf('{') + 1, functionText.length - 1);
@@ -46,7 +45,7 @@ function injectFunctionInstantly(injectedFunction)
 }
 
 
-function webScoketInterception()
+function webSocketInterception()
 {
     // wsHook - WebSocket Interception
     // based on https://github.com/skepticfx/wshook

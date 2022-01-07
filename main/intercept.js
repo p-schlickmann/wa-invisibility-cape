@@ -1,9 +1,12 @@
 var isInitializing = true
-var isInvisible = true
+
+function isInvisible() {
+    return localStorage.getItem('isInvisible') === '1'
+}
 
 wsHook.before = function (a) {
     const handleBefore = async function (receivedData) {
-        if (!isInvisible) {
+        if (!isInvisible()) {
             return receivedData
         }
         try {
@@ -34,7 +37,7 @@ wsHook.before = function (a) {
                     if (!isAllowed) {
                         manipulatedNode[0] = "blocked_node";
                     }
-                    // manipulatedNode = await NodeHandler.manipulateSentNode(manipulatedNode);
+                    manipulatedNode = await NodeHandler.manipulateSentNode(manipulatedNode);
                     decryptedFrames[i] = {node: manipulatedNode, counter: counter};
                 }
                 return MessageEncryptor.parseNodesToSend(decryptedFrames, false, tag);

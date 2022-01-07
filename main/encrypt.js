@@ -1,7 +1,6 @@
 var MessageEncryptor = {}
 
 MessageEncryptor.encrypt = function(buffer) {
-    console.log('encrypting')
     if (buffer instanceof Uint8Array) {
         buffer = transformToArrayBuffer(buffer)
     }
@@ -52,5 +51,4 @@ MessageEncryptor.parseNodesToSend = async function(nodesInfo, isIncoming = false
         packetBinaryWriter.pushBytes(isIncoming ? frame.serializeWithoutBinaryOpts() : frame.serialize());
         }
     return packetBinaryWriter.toBuffer();
-
 }

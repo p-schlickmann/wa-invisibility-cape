@@ -1,30 +1,13 @@
-var isInvisFromStorage
-
-
-const readLocalStorage = async (key) => {
-    return new Promise((resolve, reject) => {
-        chrome.storage.local.get([key], function (result) {
-            if (result[key] === undefined) {
-                reject();
-            } else {
-                resolve(result[key]);
-            }
-        });
-    });
-};
-
-function syncInvisibilityStatus() {
-    isInvisFromStorage = readLocalStorage('isInvis')
+function isInvisFromStorage() {
+    return localStorage.getItem('isInvisible') === '1'
 }
 
 function fillInfoFromStorage() {
-    syncInvisibilityStatus()
-    isInvisFromStorage ? beInvisible(true) : beVisible(true)
-
+    isInvisFromStorage() ? beInvisible(true) : beVisible(true)
 }
 
 function beInvisible(forced=false) {
-    // console.log('dispatching be invisible')
+    localStorage.setItem('isInvisible', '1')
     if (forced) {
         document.querySelector('#invis-checkbox').setAttribute('checked', 'true')
     }
@@ -33,12 +16,7 @@ function beInvisible(forced=false) {
 }
 
 function beVisible(forced=false) {
-    // console.log('dispatching be visible')
-    // try {
-    //     chrome.runtime.sendMessage({ name: "setInvisibility", isInvis: '0' });
-    // } catch (e) {
-    //     console.log(e)
-    // }
+    localStorage.setItem('isInvisible', '0')
     if (forced) {
         document.querySelector('#invis-checkbox').removeAttribute('checked')
     }
@@ -49,7 +27,5 @@ function beVisible(forced=false) {
 document.addEventListener("DOMContentLoaded", fillInfoFromStorage, true);
 
 document.getElementById('invis-checkbox').addEventListener('change', function (e) {
-    chrome.storage.local.set({isInvis: e.target.checked});
-    syncInvisibilityStatus()
-    isInvisFromStorage ? beInvisible() : beVisible()
+    isInvisFromStorage() ? beVisible() : beInvisible()
 })
