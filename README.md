@@ -10,8 +10,8 @@ Chrome extension to be invisible on WhatsApp Web!
 
 <a name="inter"></a>
 ## Interface
-<img style="max-width: 250px" alt="cape img off" src="/Users/mendespedro/Documents/projects/wa-invisibility-cape/off.png">
-<img style="max-width: 250px" alt="cape img on" src="/Users/mendespedro/Documents/projects/wa-invisibility-cape/on.png">
+<img style="width: 500px" alt="cape img off" src="off.png">
+<img style="width: 500px" alt="cape img on" src="on.png">
 
 <a name="run"></a>
 ## How to run this project
@@ -22,7 +22,9 @@ Chrome extension to be invisible on WhatsApp Web!
 
 <a name="tech"></a>
 ## How does it work?
-It basically intercepts
+Since I knew just a little bit about software engineering I knew that this was possible. In the client side you are in control, so then you could techinically simulate that you are not online by intercepting some types of websockets, the server would never know. 
+The challenge was to implement it, happy that I did it!   
+Big thanks to [whatsapp-web-incognito](https://github.com/tomer8007/whatsapp-web-incognito) who gave me a huge sense of direction for this project.
 
 <a name="bug"></a>
 ## Report a bug
