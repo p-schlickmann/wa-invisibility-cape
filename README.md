@@ -10,14 +10,15 @@ Chrome extension to be invisible on WhatsApp Web!
 
 <a name="inter"></a>
 ## Interface
-<img height="500" src="icon2.png" >  
+<img style="max-width: 250px" alt="cape img off" src="/Users/mendespedro/Documents/projects/wa-invisibility-cape/off.png">
+<img style="max-width: 250px" alt="cape img on" src="/Users/mendespedro/Documents/projects/wa-invisibility-cape/on.png">
 
 <a name="run"></a>
 ## How to run this project
 1. You'll need Chrome installed on your computer.
 3. Clone this repository.
 4. Browse to chrome://extensions.
-5. Click `Load unpacked` and load the cloned repository on your machine.
+5. Click `Load unpacked` and load the cloned repository.
 
 <a name="tech"></a>
 ## How does it work?

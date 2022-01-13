@@ -8,7 +8,7 @@
     "persistent": true
   },
   "icons": {
-    "128": "icon2.png"
+    "128": "icon.png"
   },
   "web_accessible_resources": ["main/*", "popup/*", "lib/*" ],
   "content_scripts":
